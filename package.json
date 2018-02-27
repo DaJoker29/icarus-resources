@@ -1,0 +1,19 @@
+{
+  "name": "icarus-resources",
+  "version": "1.0.0",
+  "description": "NodeJS script to send server resource data back to Icarus (Zero Daedalus app)",
+  "main": "index.js",
+  "repository": "git@github.com:DaJoker29/icarus-resources.git",
+  "author": "Dewitt Buckingham <dj729@comcast.net>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "commander": "2.14.1",
+    "diskusage": "0.2.4",
+    "global": "4.3.2",
+    "request": "2.83.0"
+  },
+  "bin": {
+    "icarus-resources": "./index.js"
+  }
+}
