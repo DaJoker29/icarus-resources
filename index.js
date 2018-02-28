@@ -6,15 +6,16 @@ const program = require('commander');
 const request = require('request');
 
 let path = os.platform() === 'win32' ? 'c:' : '/';
-let url = 'https://icarus.zerodaedalus.com/tracker'
+let url = 'https://icarus.zerodaedalus.com/resource'
 
 const params = {
-  load: os.loadavg(),
+  load: os.loadavg()[2],
   freeMem: os.freemem(),
   totalMem: os.totalmem(),
   hostname: os.hostname(),
   uptime: os.uptime(),
-  disk: du.checkSync(path),
+  availDisk: du.checkSync(path).available,
+  totalDisk: du.checkSync(path).total,
 };
 
 program
@@ -24,13 +25,14 @@ program
   .parse(process.argv);
 
 if (program.local) {
-  url = `http://localhost${program.port ? ':' + program.port : ''}/tracker`;
+  url = `http://localhost${program.port ? ':' + program.port : ''}/resource`;
 } else if (program.dev) {
-  url = 'https://suraci.zerodaedalus.com/tracker';
+  url = 'https://suraci.zerodaedalus.com/resource';
 }
 
-console.log('Sending params');
-request.post(url, params, (err, res, body) => {
+console.log(params);
+console.log(url);
+request.post(url, {body: params, json: true} , (err, res, body) => {
   if (err) console.log(err);
   if (res) console.log(res && res.statusCode);
   if (body) console.log(body);
