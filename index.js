@@ -10,11 +10,11 @@ let url = 'https://icarus.zerodaedalus.com/resource'
 
 const params = {
   load: os.loadavg()[2],
-  freeMem: os.freemem(),
+  usedMem: os.totalmem() - os.freemem(),
   totalMem: os.totalmem(),
   hostname: os.hostname(),
   uptime: os.uptime(),
-  availDisk: du.checkSync(path).available,
+  usedDisk: du.checkSync(path).total - du.checkSync(path).free,
   totalDisk: du.checkSync(path).total,
 };
 
